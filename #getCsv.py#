@@ -1,0 +1,21 @@
+import csv
+
+# Creates the mapping
+with open('Homo_sapiens.gene_info.tsv') as f:
+    reader = csv.DictReader(f, delimiter='\t')
+    mapping = dict()
+    for row in reader:
+        syn = row['Synonyms']
+        syn = syn.split('|')
+        tag = [row['GeneID'], row['Symbol']]
+        for s in syn:
+         mapping[s] = tag
+         mapping[row['Symbol']] = tag
+
+
+        gene_symbol = line.strip()
+        print gene_symbol
+        if gene_symbol in mapping.keys():
+            writer.writerow(mapping[gene_symbol])
+        else:
+            print 'Not found: ' + gene_symbol
